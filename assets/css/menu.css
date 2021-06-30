@@ -1,0 +1,39 @@
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a{
+    display: block;
+    padding: 16px;
+    text-transform: none;
+    font-size: 25px;
+}
+
+.sidenav a.active{
+    background-color: darkgrey;
+    color: yellow;
+}
+
+.topmenu{
+    margin-top:20px;
+    display:flex;
+    padding-bottom: 50px;
+}
+.topmenu li{
+    margin-right: 1em;
+    list-style: none;
+    list-style-image: none;
+}
+.blog {
+    max-width:1000px;
+    width:100%;
+    margin:auto;
+}

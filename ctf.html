@@ -1,0 +1,42 @@
+---
+layout: default
+title: "CTF"
+description: "Writeups of CTF events"
+permalink: "ctf"
+---
+
+{% assign event_list = site.pages | where_exp: "item", "item.path contains 'ctf/'" | sort: "start" | group_by_exp: "item", "item.start | truncate: 4, ''" %}
+
+<div class="home">
+    {%- if page.title -%}
+      <h1 class="page-heading" {%- if page.description -%}style="margin-bottom: -10px;"{%endif%}>{{ page.title }}</h1>
+    {%- endif -%}
+    {%- if page.description -%}
+      <span class="post-meta">{{ page.description }}</span>
+      <p></p>
+    {%- endif -%}
+  
+    <p></p>
+    
+    {%- if event_list.size > 0 -%}
+      {%for event_by_year in event_list%}
+        {%- if event_by_year.name -%}
+          <h2 class="post-list-heading"> {{ event_by_year.name | capitalize }}</h2>
+        {%- endif -%}
+        <ul class="post-list">
+        {%for event in event_by_year.items %}
+          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <li>
+            <h3>
+              <a class="post-link" href="{{ event.url | relative_url }}">
+                {{ event.title | escape }}
+              </a>
+              <span class="post-meta">{{ event.start | date: date_format }} - {% if event.end %}{{ event.end | date: date_format }}{%endif%}</span>
+            </h3>
+          </li>
+        {%endfor%}
+        </ul>
+      {%endfor%}
+    {%- endif -%}
+  
+  </div>

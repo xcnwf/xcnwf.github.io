@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading" {%- if page.description -%}style="margin-bottom: -10px;"{%endif%}>{{ page.title }}</h1>
+  {%- endif -%}
+  {%- if page.description -%}
+    <span class="post-meta">{{ page.description }}</span>
+    <br \>
+  {%- endif -%}
+  {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+  <span class="post-meta">{{ page.start | date: date_format }} - {%if page.end%}{{ page.end | date: date_format }}{%endif%}</span>
+  <p></p>
+
+  {{ content }}
+
+  <hr />
+  <p></p>
+  {%- assign posts_categories = site.categories["thcon21"] | sort: "order", "last" | group_by: "challenge_type" -%}
+  
+  {%- if posts_categories.size > 0 -%}
+    {%for challenge_type in posts_categories%}
+      {%- if challenge_type.name -%}
+        <h2 class="post-list-heading"> {{ challenge_type.name | capitalize }}:</h2>
+      {%- endif -%}
+      <ul class="post-list">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {%- for post in challenge_type.items -%}
+        <li style="margin-left:20px">
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+          </h3>
+          {%- if site.show_excerpts -%}
+            {{ post.excerpt }}
+          {%- endif -%}
+        </li>
+        {%- endfor -%}
+      </ul>
+    {%endfor%}
+  {%- endif -%}
+
+</div>
